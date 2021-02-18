@@ -40,7 +40,9 @@ class HomeFragment: Fragment(), TestAdapter.Callback {
     }
 
     override fun onClick(ivTest: ImageView, transitionName: String) {
+        val toOneFragment = HomeFragmentDirections.actionHomeFragmentToOneFragment(transitionName = transitionName)
         ivTest.transitionName = transitionName
         val extras = FragmentNavigatorExtras(ivTest to ivTest.transitionName)
+        findNavController().navigate(toOneFragment,extras)
     }
 }

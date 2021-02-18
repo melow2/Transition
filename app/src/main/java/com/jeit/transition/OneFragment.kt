@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import com.google.android.material.transition.MaterialContainerTransform
 import com.jeit.transition.databinding.FragmentOneBinding
 
 class OneFragment : Fragment() {
 
     private lateinit var mBinding: FragmentOneBinding
+    private val args by navArgs<OneFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +23,14 @@ class OneFragment : Fragment() {
 
     private fun prepareTransitions() {
         postponeEnterTransition()
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move).apply {
-                duration = 3000
-            }
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            duration = 3000
+        }
     }
 
     private fun startTransitions() = mBinding.run {
-
+        ivTest.transitionName =args.transitionName
+        startPostponedEnterTransition()
     }
 
     override fun onCreateView(
